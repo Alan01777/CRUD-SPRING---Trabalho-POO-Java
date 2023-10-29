@@ -1,18 +1,15 @@
 # Trabalho CRUD da disciplina de Programação Orientada a Objetos em Java
 
-![Java Logo](https://example.com/java-logo.png)
+![Java Logo](https://www.pngmart.com/files/21/Spring-Logo-PNG-HD-Isolated.png)
 
 **Aluno:** Francisco Alan Oliveira da Costa Alves
 
 **Matrícula:** 202202543942
 
-## Sobre o CRUD
 Este projeto CRUD foi desenvolvido como parte da disciplina de Programação Orientada a Objetos em Java. Utiliza o framework Spring e o sistema de gerenciamento de dependências Maven, com uma base de dados H2, para servir como uma API REST.
 
-## Entidades
 
 ### Author (Relação Um-para-Muitos)
-- **Id:** Identificador único
 - **Name:** Nome do autor
 - **Books:** Lista de livros escritos pelo autor
 
