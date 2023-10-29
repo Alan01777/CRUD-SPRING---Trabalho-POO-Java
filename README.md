@@ -10,6 +10,7 @@ Este projeto CRUD foi desenvolvido como parte da disciplina de Programação Ori
 
 
 ### Author (Relação Um-para-Muitos)
+- **Id:** Identificador único
 - **Name:** Nome do autor
 - **Books:** Lista de livros escritos pelo autor
 
