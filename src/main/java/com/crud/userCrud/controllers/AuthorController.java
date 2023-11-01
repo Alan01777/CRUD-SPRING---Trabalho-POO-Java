@@ -17,7 +17,7 @@ public class AuthorController {
     public Iterable<Author> getAllAuthors() {
         Iterable<Author> authors = authorRepository.findAll();
         for (Author author : authors) {
-            author.setBooks(author.getBooks()); // Carrega os detalhes dos livros associados
+            author.setBooks(author.getBooks());
         }
         return authors;
     }
