@@ -11,26 +11,32 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+// A classe representa um autor de livros no sistema.
 
 @Entity
 @Table(name = "author")
 public class Author {
+    // ID único do autor.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    // Nome do autor.
     private String name;
 
+    // Relacionamento um-para-muitos com a entidade Book.
     @OneToMany(mappedBy = "author")
+    // Anotação para gerenciar referências no JSON (evita referências cíclicas).
     @JsonManagedReference
     private List<Book> books;
 
+    // Construtor vazio padrão.
     public Author() {
-        
     }
 
+    // Getters e Setters
     public Long getId() {
         return id;
-
     }
 
     public void setId(Long id) {
@@ -49,7 +55,6 @@ public class Author {
         return books;
     }
     
-
     public void setBooks(List<Book> books) {
         this.books = books;
     }
