@@ -6,6 +6,7 @@ import com.crud.userCrud.entities.Author;
 import com.crud.userCrud.entities.Book;
 import com.crud.userCrud.Repositories.AuthorRepository;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/api/authors")
@@ -56,18 +57,35 @@ public class AuthorController {
 
     // Exclui um autor por ID e desassocia os livros do autor.
     @DeleteMapping("/{id}")
-    public void deleteAuthor(@PathVariable Long id) {
-        // Busca o autor no repositório.
+    public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
+        // Passo 1: Verifica se o autor existe.
         Author author = authorRepository.findById(id).orElse(null);
-        // Se o autor existir, desassocia os livros e exclui o autor.
+
         if (author != null) {
-            List<Book> books = author.getBooks();
-            for (Book book : books) {
-                // Desassocia o autor dos livros
-                book.setAuthor(null);
+            try {
+                // Passo 2: Desassocia o autor dos livros.
+                List<Book> books = author.getBooks();
+                for (Book book : books) {
+                    book.setAuthor(null);
+                }
+
+                // Passo 3: Exclui o autor do repositório.
+                authorRepository.delete(author);
+
+                // Passo 4: Retorna uma resposta com código 204 (No Content) e corpo vazio para
+                // indicar exclusão bem-sucedida.
+                return ResponseEntity.noContent().build();
+
+            } catch (Exception e) {
+                
+                // Passo 2b: Se ocorrer uma exceção inesperada, retorne um código de status 500
+                // (Internal Server Error).
+                return ResponseEntity.status(500).build();
             }
-            // Exclui o autor do repositório.
-            authorRepository.delete(author);
+        } else {
+            // Passo 1b: Se o autor não for encontrado, retorne um código de status 404 (Not
+            // Found).
+            return ResponseEntity.notFound().build();
         }
     }
 }

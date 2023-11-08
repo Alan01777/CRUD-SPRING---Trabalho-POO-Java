@@ -1,6 +1,8 @@
 package com.crud.userCrud.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.crud.userCrud.entities.Book;
 import com.crud.userCrud.Repositories.BookRepository;
@@ -48,8 +50,25 @@ public class BookController {
 
     // Exclui um livro por ID.
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable Long id) {
-        // Exclui o livro do repositório com base no ID.
-        bookRepository.deleteById(id);
+    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+        try {
+            // Passo 1: Tente excluir o livro do repositório com base no ID.
+            bookRepository.deleteById(id);
+
+            // Passo 2: Retorna uma resposta com código 204 (No Content) e corpo vazio para
+            // indicar exclusão bem-sucedida.
+            return ResponseEntity.noContent().build();
+        } catch (EmptyResultDataAccessException e) {
+
+            // Passo 1b: Se o livro não for encontrado, retorne um código de status 404 (Not
+            // Found).
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            
+            // Passo 1c: Se ocorrer uma exceção inesperada, retorne um código de status 500
+            // (Internal Server Error).
+            return ResponseEntity.status(500).build();
+        }
     }
+
 }
