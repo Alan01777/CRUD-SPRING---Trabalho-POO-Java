@@ -22,7 +22,6 @@ public class BookController {
     // Retorna um livro por ID.
     @GetMapping("/{id}")
     public Book getBookById(@PathVariable Long id) {
-
         // Busca um livro pelo ID no repositório ou retorna nulo se não encontrado.
         return bookRepository.findById(id).orElse(null);
     }

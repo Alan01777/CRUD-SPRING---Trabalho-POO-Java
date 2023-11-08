@@ -27,7 +27,7 @@ public class AuthorController {
         return authors;
     }
 
-    // Retorna um autor por ID.
+    // Retorna um autor específico por ID.
     @GetMapping("/{id}")
     public Author getAuthorById(@PathVariable Long id) {
         // Busca um autor pelo ID no repositório ou retorna nulo se não encontrado.
