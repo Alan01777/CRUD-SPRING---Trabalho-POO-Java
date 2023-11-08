@@ -25,7 +25,8 @@ public class Author {
 
     // Relacionamento um-para-muitos com a entidade Book.
     @OneToMany(mappedBy = "author")
-    // Anotação para gerenciar referências no JSON (evita referências cíclicas/loops).
+    // Anotação para gerenciar referências no JSON (evita referências
+    // cíclicas/loops).
     @JsonManagedReference
     private List<Book> books;
 
